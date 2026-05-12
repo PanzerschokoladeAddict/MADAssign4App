@@ -11,7 +11,7 @@ export default function RootLayout() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="teams/create/create"
+        name="teams/create/created"
         options={{ headerShown: false }}
       />
       <Stack.Screen name="(tabs)/home" options={{ headerShown: false }} />

@@ -20,7 +20,7 @@ export default function Register() {
       return;
     }
     router.push({
-      pathname: "./create",
+      pathname: "./created",
       params: { teamName, teamLeader, teamCode },
     });
   }
