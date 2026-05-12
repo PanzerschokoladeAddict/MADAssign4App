@@ -36,7 +36,7 @@ export default function Joined() {
         buttonColor="#4c8f3f"
         onPress={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-          router.replace("/");
+          router.replace("../../(tabs)/home");
         }}
         style={styles.button}
       >

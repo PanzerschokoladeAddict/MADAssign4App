@@ -1,7 +1,7 @@
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import QRCode from "react-native-qrcode-svg";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -14,6 +14,7 @@ export default function Create() {
 
   if (!teamName || !teamLeader || !teamCode) return null;
 
+  const router = useRouter();
   const qrValue = JSON.stringify({ teamName, teamLeader, teamCode });
 
   return (
@@ -51,6 +52,15 @@ export default function Create() {
         </Text>
 
         <QRCode value={qrValue} size={200} />
+
+        <Button
+          mode="contained"
+          buttonColor="#4c8f3f"
+          style={{ marginTop: 24 }}
+          onPress={() => router.replace("../../(tabs)/home")}
+        >
+          Start Activities
+        </Button>
       </SafeAreaView>
     </SafeAreaProvider>
   );
