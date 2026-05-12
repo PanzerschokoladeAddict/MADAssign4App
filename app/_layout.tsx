@@ -20,7 +20,7 @@ export default function RootLayout() {
         options={{ title: "Sound Pollution Hunter" }}
       />
       <Stack.Screen
-        name="activities/sound-results"
+        name="activities/soundresults"
         options={{ title: "Sound Results" }}
       />
       <Stack.Screen
@@ -28,7 +28,7 @@ export default function RootLayout() {
         options={{ title: "Earthquake Structure" }}
       />
       <Stack.Screen
-        name="activities/earthquake-results"
+        name="activities/earthquakeresults"
         options={{ title: "Earthquake Results" }}
       />
       <Stack.Screen
@@ -36,7 +36,7 @@ export default function RootLayout() {
         options={{ title: "Reaction Board" }}
       />
       <Stack.Screen
-        name="activities/reaction-results"
+        name="activities/reactionresults"
         options={{ title: "Reaction Results" }}
       />
     </Stack>

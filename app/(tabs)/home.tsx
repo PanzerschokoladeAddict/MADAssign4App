@@ -15,24 +15,21 @@ const activities = [
     title: "Sound Pollution Hunter",
     description: "Measure sound levels using your microphone",
     color: "#3a7bd5",
-    icon: "🎤",
-    route: "/activities/sound",
+    route: "../activities/sound",
   },
   {
     id: "earthquake",
     title: "Earthquake Structure",
     description: "Test your structure using the accelerometer",
     color: "#e8a838",
-    icon: "🏗️",
-    route: "/activities/earthquake",
+    route: "../activities/earthquake",
   },
   {
     id: "reaction",
     title: "Reaction Board",
     description: "Measure your reaction time",
     color: "#9b59b6",
-    icon: "⚡",
-    route: "/activities/reaction",
+    route: "../activities/reaction",
   },
 ];
 
@@ -51,7 +48,6 @@ export default function HomeScreen() {
             style={[styles.card, { backgroundColor: activity.color }]}
             onPress={() => router.push(activity.route as any)}
           >
-            <Text style={styles.cardIcon}>{activity.icon}</Text>
             <View style={styles.cardText}>
               <Text style={styles.cardTitle}>{activity.title}</Text>
               <Text style={styles.cardDescription}>{activity.description}</Text>
