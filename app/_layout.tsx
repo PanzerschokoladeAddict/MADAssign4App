@@ -16,27 +16,27 @@ export default function RootLayout() {
       />
       <Stack.Screen name="(tabs)/home" options={{ headerShown: false }} />
       <Stack.Screen
-        name="activities/sound"
+        name="activities/sound/sound"
         options={{ title: "Sound Pollution Hunter" }}
       />
       <Stack.Screen
-        name="activities/soundresults"
+        name="activities/sound/soundresults"
         options={{ title: "Sound Results" }}
       />
       <Stack.Screen
-        name="activities/earthquake"
+        name="activities/earthquake/earthquake"
         options={{ title: "Earthquake Structure" }}
       />
       <Stack.Screen
-        name="activities/earthquakeresults"
+        name="activities/earthquake/earthquakeresults"
         options={{ title: "Earthquake Results" }}
       />
       <Stack.Screen
-        name="activities/reaction"
+        name="activities/reaction/reaction"
         options={{ title: "Reaction Board" }}
       />
       <Stack.Screen
-        name="activities/reactionresults"
+        name="activities/reaction/reactionresults"
         options={{ title: "Reaction Results" }}
       />
     </Stack>

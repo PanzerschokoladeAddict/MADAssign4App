@@ -15,21 +15,21 @@ const activities = [
     title: "Sound Pollution Hunter",
     description: "Measure sound levels using your microphone",
     color: "#3a7bd5",
-    route: "../activities/sound",
+    route: "./../activities/sound/sound",
   },
   {
     id: "earthquake",
     title: "Earthquake Structure",
     description: "Test your structure using the accelerometer",
     color: "#e8a838",
-    route: "../activities/earthquake",
+    route: "./../activities/earthquake/earthquake",
   },
   {
     id: "reaction",
     title: "Reaction Board",
     description: "Measure your reaction time",
     color: "#9b59b6",
-    route: "../activities/reaction",
+    route: "./../activities/reaction/reaction",
   },
 ];
 
