@@ -3,47 +3,45 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
+export default function SetUpScreen() {
   const router = useRouter();
 
+  const handlePress = (route: any) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    router.push(route);
+  };
+
   return (
-    <SafeAreaProvider style={styles.header}>
-      <SafeAreaView style={styles.container}>
-        <Button
-          style={styles.button}
-          contentStyle={styles.buttonContent}
-          mode="contained"
-          buttonColor="#8f3f3f"
-          onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-            router.push("./create/register");
-          }}
-        >
-          Create A New Team
-        </Button>
-        <Button
-          style={styles.button}
-          contentStyle={styles.buttonContent}
-          mode="contained"
-          buttonColor="#3f488f"
-          onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-            router.push("./join/join");
-          }}
-        >
-          Join An Existing Team
-        </Button>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <SafeAreaView style={styles.container}>
+      <Button
+        style={styles.button}
+        contentStyle={styles.buttonContent}
+        mode="contained"
+        buttonColor="#8f3f3f"
+        onPress={() => {
+          handlePress("./create/register");
+        }}
+      >
+        Create A New Team
+      </Button>
+      <Button
+        style={styles.button}
+        contentStyle={styles.buttonContent}
+        mode="contained"
+        buttonColor="#3f488f"
+        onPress={() => {
+          handlePress("./join/join");
+        }}
+      >
+        Join An Existing Team
+      </Button>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     paddingHorizontal: 20,
@@ -58,7 +56,6 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: "40%",
-    paddingBottom: "40%",
+    paddingVertical: "40%",
   },
 });
