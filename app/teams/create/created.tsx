@@ -1,5 +1,6 @@
+import { saveTeamData } from "@/services/firestoreService";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import QRCode from "react-native-qrcode-svg";
@@ -16,6 +17,11 @@ export default function Create() {
 
   const router = useRouter();
   const qrValue = JSON.stringify({ teamName, teamLeader, teamCode });
+
+  useEffect(() => {
+    // Save team data to Firestore when loading this screem
+    saveTeamData(teamName, teamLeader, teamCode).catch(console.error);
+  }, []);
 
   return (
     <SafeAreaProvider>
