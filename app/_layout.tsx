@@ -14,6 +14,7 @@ export default function RootLayout() {
         name="teams/create/created"
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)/home" options={{ headerShown: false }} />
       <Stack.Screen
         name="activities/sound/sound"

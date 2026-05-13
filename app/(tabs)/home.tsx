@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const activities = [
   {
@@ -15,21 +15,21 @@ const activities = [
     title: "Sound Pollution Hunter",
     description: "Measure sound levels using your microphone",
     color: "#3a7bd5",
-    route: "./../activities/sound/sound",
+    route: "activities/sound/sound",
   },
   {
     id: "earthquake",
     title: "Earthquake Structure",
     description: "Test your structure using the accelerometer",
     color: "#e8a838",
-    route: "./../activities/earthquake/earthquake",
+    route: "activities/earthquake/earthquake",
   },
   {
     id: "reaction",
     title: "Reaction Board",
     description: "Measure your reaction time",
     color: "#9b59b6",
-    route: "./../activities/reaction/reaction",
+    route: "activities/reaction/reaction",
   },
 ];
 
@@ -37,25 +37,29 @@ export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
-        <Text style={styles.title}>STEMM Lab</Text>
-        <Text style={styles.subtitle}>Choose an Activity</Text>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scroll}>
+          <Text style={styles.title}>STEMM Lab</Text>
+          <Text style={styles.subtitle}>Choose an Activity</Text>
 
-        {activities.map((activity) => (
-          <TouchableOpacity
-            key={activity.id}
-            style={[styles.card, { backgroundColor: activity.color }]}
-            onPress={() => router.push(activity.route as any)}
-          >
-            <View style={styles.cardText}>
-              <Text style={styles.cardTitle}>{activity.title}</Text>
-              <Text style={styles.cardDescription}>{activity.description}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+          {activities.map((activity) => (
+            <TouchableOpacity
+              key={activity.id}
+              style={[styles.card, { backgroundColor: activity.color }]}
+              onPress={() => router.push(activity.route as any)}
+            >
+              <View style={styles.cardText}>
+                <Text style={styles.cardTitle}>{activity.title}</Text>
+                <Text style={styles.cardDescription}>
+                  {activity.description}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
