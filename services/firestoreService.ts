@@ -1,9 +1,11 @@
 import {
-    addDoc,
-    collection,
-    getDocs,
-    query,
-    serverTimestamp,
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
@@ -12,12 +14,15 @@ export async function saveTeamData(
   teamLeader: string,
   teamCode: string,
 ) {
-  return addDoc(collection(db, "teams"), {
+  const docRef = await addDoc(collection(db, "teams"), {
     teamName,
     teamLeader,
     teamCode,
+    team_id: "",
     createdAt: serverTimestamp(),
   });
+  await updateDoc(docRef, { team_id: docRef.id });
+  return docRef;
 }
 
 export async function saveResultsData(
@@ -34,13 +39,13 @@ export async function saveResultsData(
 }
 
 export async function getTeams() {
-  const q = query(collection(db, "teams"));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const q = query(collection(db, "teams"), orderBy("createdAt", "desc"));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
 export async function getResults() {
-  const q = query(collection(db, "results"));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const q = query(collection(db, "results"), orderBy("createdAt", "desc"));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
