@@ -1,4 +1,4 @@
-import * as haptic from "expo-haptics";
+import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React from "react";
 import { Alert, Image, StyleSheet } from "react-native";
@@ -25,6 +25,10 @@ export default function Register() {
     });
   }
 
+  const handleHapticFeedback = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -34,7 +38,7 @@ export default function Register() {
 
         <Image
           source={require("../../../assets/images/team.png")}
-          style={{ width: 200, height: 200, alignSelf: "center" }}
+          style={styles.imageStyle}
         />
 
         <TextInput
@@ -67,7 +71,7 @@ export default function Register() {
           mode="contained"
           buttonColor="#4c8f3f"
           onPress={() => {
-            haptic.impactAsync(haptic.ImpactFeedbackStyle.Medium);
+            handleHapticFeedback();
             _handleCreate();
           }}
         >
@@ -79,7 +83,7 @@ export default function Register() {
           mode="contained"
           buttonColor="#8f3f3f"
           onPress={() => {
-            haptic.impactAsync(haptic.ImpactFeedbackStyle.Medium);
+            handleHapticFeedback();
             _handleExit();
           }}
         >
@@ -97,6 +101,11 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 16,
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
+    alignSelf: "center",
   },
   input: {
     margin: 16,

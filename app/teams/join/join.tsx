@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Join() {
   const [permission, requestPermission] = useCameraPermissions();
@@ -35,7 +35,11 @@ export default function Join() {
   }
 
   function handleBarcodeScanned({ data }: { data: string }) {
-    let teamParams: { teamName: string; teamLeader?: string; teamCode?: string } = { teamName: data };
+    let teamParams: {
+      teamName: string;
+      teamLeader?: string;
+      teamCode?: string;
+    } = { teamName: data };
 
     try {
       const parsed = JSON.parse(data);
@@ -54,17 +58,19 @@ export default function Join() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <CameraView
-        style={styles.camera}
-        facing="back"
-        onBarcodeScanned={handleBarcodeScanned}
-        barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
-      />
-      <Text style={styles.instructions}>
-        Point your camera at a team QR code
-      </Text>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <CameraView
+          style={styles.camera}
+          facing="back"
+          onBarcodeScanned={handleBarcodeScanned}
+          barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
+        />
+        <Text style={styles.instructions}>
+          Point your camera at a team QR code
+        </Text>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

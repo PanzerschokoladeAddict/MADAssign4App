@@ -13,17 +13,16 @@ export default function SetUp() {
     loginAnonymously(); // Silenty log in the user anonymously to enable backend interactions without requiring immediate authentication.
   }, []);
 
+  const handleComplete = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push("/teams/setup");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Onboarding
-        onSkip={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          router.push("/teams/setup");
-        }}
-        onDone={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          router.push("/teams/setup");
-        }}
+        onSkip={handleComplete}
+        onDone={handleComplete}
         pages={[
           {
             backgroundColor: "#4c8f3f",

@@ -2,44 +2,22 @@ import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="teams/setup" options={{ headerShown: false }} />
-      <Stack.Screen name="teams/join/join" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="teams/create/register"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="teams/create/created"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)/home" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="activities/sound/sound"
-        options={{ title: "Sound Pollution Hunter" }}
-      />
-      <Stack.Screen
-        name="activities/sound/soundresults"
-        options={{ title: "Sound Results" }}
-      />
-      <Stack.Screen
-        name="activities/earthquake/earthquake"
-        options={{ title: "Earthquake Structure" }}
-      />
-      <Stack.Screen
-        name="activities/earthquake/earthquakeresults"
-        options={{ title: "Earthquake Results" }}
-      />
-      <Stack.Screen
-        name="activities/reaction/reaction"
-        options={{ title: "Reaction Board" }}
-      />
-      <Stack.Screen
-        name="activities/reaction/reactionresults"
-        options={{ title: "Reaction Results" }}
-      />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="teams/setup" />
+      <Stack.Screen name="teams/join/join" />
+      <Stack.Screen name="teams/create/register" />
+      <Stack.Screen name="teams/create/created" />
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="(tabs)/home" />
+      <Stack.Screen name="(tabs)/history" />
+      <Stack.Screen name="(tabs)/leaderboard" />
+      <Stack.Screen name="activities/sound/sound" />
+      <Stack.Screen name="activities/sound/soundresults" />
+      <Stack.Screen name="activities/earthquake/earthquake" />
+      <Stack.Screen name="activities/earthquake/earthquakeresults" />
+      <Stack.Screen name="activities/reaction/reaction" />
+      <Stack.Screen name="activities/reaction/reactionresults" />
     </Stack>
   );
 }
