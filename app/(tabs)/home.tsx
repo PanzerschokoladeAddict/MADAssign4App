@@ -1,5 +1,6 @@
+import * as Battery from "expo-battery";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -35,6 +36,48 @@ const activities = [
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [batteryLevel, setBatteryLevel] = useState(0);
+  const [isCharging, setIsCharging] = useState(false);
+
+  useEffect(() => {
+    Promise.all([
+      Battery.getBatteryLevelAsync(),
+      Battery.getBatteryStateAsync(),
+    ]).then(([level, state]) => {
+      setBatteryLevel(level);
+      setIsCharging(
+        state === Battery.BatteryState.CHARGING ||
+          state === Battery.BatteryState.FULL,
+      );
+    });
+
+    let batteryLevelListener: any;
+    let batteryStateListener: any;
+
+    try {
+      batteryLevelListener = Battery.addBatteryLevelListener(
+        ({ batteryLevel }) => {
+          setBatteryLevel(batteryLevel);
+        },
+      );
+
+      batteryStateListener = Battery.addBatteryStateListener(
+        ({ batteryState }) => {
+          setIsCharging(
+            batteryState === Battery.BatteryState.CHARGING ||
+              batteryState === Battery.BatteryState.FULL,
+          );
+        },
+      );
+    } catch (error) {
+      console.warn("Battery API not supported on this device");
+    }
+
+    return () => {
+      batteryLevelListener?.remove();
+      batteryStateListener?.remove();
+    };
+  }, []);
 
   const handlePress = (route: any) => {
     router.push(route);
@@ -44,6 +87,8 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={styles.title}>STEMM Lab</Text>
+        <Text>Battery Level: {Math.round(batteryLevel * 100)}%</Text>
+        {isCharging && <Text>Charging</Text>}
         <Text style={styles.subtitle}>Choose an Activity</Text>
 
         {activities.map((activity) => (
