@@ -1,20 +1,22 @@
 import {
-  AudioModule,
   getRecordingPermissionsAsync,
   RecordingPresets,
   requestRecordingPermissionsAsync,
-  setAudioModeAsync,
   useAudioRecorder,
   useAudioRecorderState,
 } from "expo-audio";
-import { useEffect } from "react";
-import { Alert, Button, StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Button, StyleSheet, View } from "react-native";
 
 export default function SoundActivity() {
+  const router = useRouter();
   const audioRecorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
-  const recorderState = useAudioRecorderState(audioRecorder);
+  const recorderState = useAudioRecorderState(audioRecorder, 100);
+  const [currentDB, setCurrentDB] = useState(0);
+  const [results, setResults] = useState([]);
 
-  const ensureRecordingPermissions = async () => {
+  const getRecordingPermissions = async () => {
     const { status } = await getRecordingPermissionsAsync();
 
     if (status !== "granted") {
@@ -30,23 +32,8 @@ export default function SoundActivity() {
   };
 
   const stopRecording = async () => {
-    // The recording will be available on `audioRecorder.uri`.
     await audioRecorder.stop();
   };
-
-  useEffect(() => {
-    (async () => {
-      const status = await AudioModule.requestRecordingPermissionsAsync();
-      if (!status.granted) {
-        Alert.alert("Permission to access microphone was denied");
-      }
-
-      setAudioModeAsync({
-        playsInSilentMode: true,
-        allowsRecording: true,
-      });
-    })();
-  }, []);
 
   return (
     <View style={styles.container}>
