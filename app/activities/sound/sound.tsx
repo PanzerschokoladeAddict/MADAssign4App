@@ -1,16 +1,28 @@
 import {
   AudioModule,
+  getRecordingPermissionsAsync,
   RecordingPresets,
+  requestRecordingPermissionsAsync,
   setAudioModeAsync,
   useAudioRecorder,
   useAudioRecorderState,
 } from "expo-audio";
 import { useEffect } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { Alert, Button, StyleSheet, View } from "react-native";
 
-export default function App() {
+export default function SoundActivity() {
   const audioRecorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
   const recorderState = useAudioRecorderState(audioRecorder);
+
+  const ensureRecordingPermissions = async () => {
+    const { status } = await getRecordingPermissionsAsync();
+
+    if (status !== "granted") {
+      const { granted } = await requestRecordingPermissionsAsync();
+      return granted;
+    }
+    return true;
+  };
 
   const record = async () => {
     await audioRecorder.prepareToRecordAsync();
