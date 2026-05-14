@@ -44,10 +44,8 @@ export default function SoundActivity() {
   const getRecordingPermissions = async () => {
     const { status } = await getRecordingPermissionsAsync();
     if (status !== "granted") {
-      const { granted } = await requestRecordingPermissionsAsync();
-      return granted;
+      await requestRecordingPermissionsAsync();
     }
-    return true;
   };
 
   useEffect(() => {
@@ -73,12 +71,12 @@ export default function SoundActivity() {
 
   const stopRecording = async () => {
     await audioRecorder.stop();
-    const risk = getRiskLevel(currentDB);
+    const { label, color } = getRiskLevel(currentDB);
     const newResult = {
       action: ACTIONS[currentAction],
       db: currentDB,
-      risk: risk.label,
-      color: risk.color,
+      risk: label,
+      color,
     };
     const updated = [...results, newResult];
     setResults(updated);
