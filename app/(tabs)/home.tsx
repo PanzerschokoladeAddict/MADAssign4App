@@ -1,7 +1,10 @@
 import * as Battery from "expo-battery";
+import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,6 +12,15 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowBanner: true,
+    shouldShowList: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const activities = [
   {
@@ -83,6 +95,42 @@ export default function HomeScreen() {
     router.push(route);
   };
 
+  const scheduleChallengeReminder = async () => {
+    const permission = await Notifications.requestPermissionsAsync();
+
+    if (!permission.granted) {
+      Alert.alert(
+        "Notifications not enabled",
+        "Please allow notifications to use challenge reminders.",
+      );
+      return;
+    }
+
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("challenge-reminders", {
+        name: "Challenge Reminders",
+        importance: Notifications.AndroidImportance.HIGH,
+      });
+    }
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "STEMM Lab Reminder",
+        body: "Time to complete your STEMM challenge!",
+        sound: true,
+      },
+      trigger: {
+        seconds: 10,
+        channelId: "challenge-reminders",
+      } as any,
+    });
+
+    Alert.alert(
+      "Reminder set",
+      "A challenge reminder notification will appear in 10 seconds.",
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -90,6 +138,14 @@ export default function HomeScreen() {
         <Text>Battery Level: {Math.round(batteryLevel * 100)}%</Text>
         {isCharging && <Text>Charging</Text>}
         <Text style={styles.subtitle}>Choose an Activity</Text>
+        <TouchableOpacity
+          style={styles.reminderButton}
+          onPress={scheduleChallengeReminder}
+        >
+          <Text style={styles.reminderButtonText}>
+            Set 10 sec Challenge Reminder
+          </Text>
+        </TouchableOpacity>
 
         {activities.map((activity) => (
           <TouchableOpacity
@@ -150,5 +206,17 @@ const styles = StyleSheet.create({
     color: "#fff",
     opacity: 0.85,
     marginTop: 4,
+  },
+  reminderButton: {
+    backgroundColor: "#1a1a1a",
+    padding: 14,
+    borderRadius: 12,
+    marginBottom: 20,
+  },
+  reminderButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
