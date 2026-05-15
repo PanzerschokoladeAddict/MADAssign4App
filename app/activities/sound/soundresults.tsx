@@ -1,5 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Button, Text } from "react-native-paper";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 type ActionResult = {
   action: string;
@@ -16,33 +18,45 @@ export default function SoundResults() {
   const loudest = parsed.reduce((a, b) => (a.db > b.db ? a : b), parsed[0]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sound Results</Text>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <Text variant="headlineMedium" style={styles.title}>
+          Sound Results
+        </Text>
 
-      {parsed.map((r, i) => (
-        <View key={i} style={styles.row}>
-          <Text style={styles.action}>{r.action}</Text>
-          <Text style={[styles.db, { color: r.color }]}>
-            {r.db} dB — {r.risk}
-          </Text>
-        </View>
-      ))}
+        {parsed.map((r, i) => (
+          <View key={i} style={styles.row}>
+            <Text variant="bodyMedium" style={styles.action}>
+              {r.action}
+            </Text>
+            <Text variant="titleMedium" style={{ color: r.color }}>
+              {r.db} dB — {r.risk}
+            </Text>
+          </View>
+        ))}
 
-      {loudest && (
-        <View style={styles.loudestCard}>
-          <Text style={styles.loudestLabel}>Loudest Action</Text>
-          <Text style={styles.loudestAction}>{loudest.action}</Text>
-          <Text style={[styles.loudestDb, { color: loudest.color }]}>
-            {loudest.db} dB — {loudest.risk}
-          </Text>
-        </View>
-      )}
+        {loudest && (
+          <View style={styles.loudestCard}>
+            <Text variant="bodyMedium" style={styles.loudestLabel}>
+              Loudest Action
+            </Text>
+            <Text variant="titleMedium">{loudest.action}</Text>
+            <Text variant="headlineSmall" style={{ color: loudest.color }}>
+              {loudest.db} dB — {loudest.risk}
+            </Text>
+          </View>
+        )}
 
-      <Button
-        title="Back to Home"
-        onPress={() => router.replace("/(tabs)/home")}
-      />
-    </View>
+        <Button
+          mode="contained"
+          buttonColor="#4c8f3f"
+          style={styles.button}
+          onPress={() => router.replace("/(tabs)/home")}
+        >
+          Back to Home
+        </Button>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -50,12 +64,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    padding: 24,
-    backgroundColor: "#ecf0f1",
+    paddingHorizontal: 24,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
     textAlign: "center",
     marginBottom: 24,
   },
@@ -63,37 +74,21 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   action: {
-    fontSize: 14,
     color: "#666",
-  },
-  db: {
-    fontSize: 20,
-    fontWeight: "bold",
+    marginBottom: 2,
   },
   loudestCard: {
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     borderRadius: 12,
     padding: 16,
     marginVertical: 16,
     alignItems: "center",
+    gap: 4,
   },
   loudestLabel: {
-    fontSize: 14,
     color: "#999",
-    marginBottom: 4,
   },
-  loudestAction: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  loudestDb: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginTop: 4,
-  },
-  saved: {
-    color: "green",
-    textAlign: "center",
-    marginVertical: 8,
+  button: {
+    marginTop: 8,
   },
 });
