@@ -19,9 +19,18 @@ const ACTIONS = [
 ];
 
 function getRiskLevel(db: number): { label: string; color: string } {
-  if (db < 60) return { label: "Low", color: "green" };
-  if (db < 80) return { label: "Medium", color: "orange" };
-  return { label: "High", color: "red" };
+  if (db < 30) return { label: "No risk", color: "#4c8f3f" };
+  if (db < 60) return { label: "Safe for long periods", color: "#4c8f3f" };
+  if (db < 85)
+    return { label: "Generally safe, fatigue possible", color: "#e8a838" };
+  if (db < 90) return { label: "Hearing damage possible", color: "#e67e22" };
+  if (db < 100) return { label: "Hearing damage likely", color: "#e67e22" };
+  if (db < 110) return { label: "Serious damage in minutes", color: "#e74c3c" };
+  if (db < 120)
+    return { label: "Painful, immediate damage possible", color: "#e74c3c" };
+  if (db < 130)
+    return { label: "Immediate and severe damage", color: "#c0392b" };
+  return { label: "Instant permanent damage", color: "#c0392b" };
 }
 
 export default function SoundActivity() {
