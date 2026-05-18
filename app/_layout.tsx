@@ -9,9 +9,6 @@ export default function RootLayout() {
       <Stack.Screen name="teams/create/register" />
       <Stack.Screen name="teams/create/created" />
       <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="(tabs)/home" />
-      <Stack.Screen name="(tabs)/history" />
-      <Stack.Screen name="(tabs)/leaderboard" />
       <Stack.Screen name="activities/sound/sound" />
       <Stack.Screen name="activities/sound/soundresults" />
       <Stack.Screen name="activities/earthquake/earthquake" />
