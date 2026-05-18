@@ -14,7 +14,6 @@ export default function RootLayout() {
       <Stack.Screen name="activities/earthquake/earthquake" />
       <Stack.Screen name="activities/earthquake/earthquakeresults" />
       <Stack.Screen name="activities/reaction/reaction" />
-      <Stack.Screen name="activities/reaction/reactionresults" />
     </Stack>
   );
 }
