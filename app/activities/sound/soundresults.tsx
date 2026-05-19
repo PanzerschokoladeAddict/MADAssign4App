@@ -1,4 +1,4 @@
-import { saveResultsData } from "@/services/firestoreService";
+import { getTeamName, saveResultsData } from "@/services/firestoreService";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
@@ -22,7 +22,8 @@ export default function SoundResults() {
 
   const handleSave = async () => {
     try {
-      await saveResultsData("Team", "sound", {
+      const teamName = await getTeamName();
+      await saveResultsData(teamName, "sound", {
         actions: parsed,
         loudestAction: loudest?.action,
         loudestDb: loudest?.db,

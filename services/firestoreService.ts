@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   addDoc,
   collection,
@@ -36,6 +37,11 @@ export async function saveResultsData(
     data,
     createdAt: serverTimestamp(),
   });
+}
+
+export async function getTeamName(): Promise<string> {
+  const name = await AsyncStorage.getItem("teamName");
+  return name ?? "Unknown Team";
 }
 
 export async function getTeams() {

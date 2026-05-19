@@ -1,4 +1,4 @@
-import { saveResultsData } from "@/services/firestoreService";
+import { getTeamName, saveResultsData } from "@/services/firestoreService";
 import React, { useRef, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -59,7 +59,8 @@ export default function ReactionActivity() {
 
   const handleSave = async () => {
     try {
-      await saveResultsData("Team", "reaction", {
+      const teamName = await getTeamName();
+      await saveResultsData(teamName, "reaction", {
         reactionTime,
         bestTime,
       });

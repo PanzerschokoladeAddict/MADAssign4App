@@ -1,4 +1,5 @@
 import { saveTeamData } from "@/services/firestoreService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
@@ -21,6 +22,7 @@ export default function Create() {
   useEffect(() => {
     // Save team data to Firestore when loading this screem
     saveTeamData(teamName, teamLeader, teamCode).catch(console.error);
+    AsyncStorage.setItem("teamName", teamName);
   }, []);
 
   return (
