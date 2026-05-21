@@ -1,4 +1,5 @@
 import { getTeamName, saveResultsData } from "@/services/firestoreService";
+import { getCurrentLocation } from "@/services/locationService";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
@@ -21,12 +22,21 @@ export default function SoundResults() {
   const loudest = parsed.reduce((a, b) => (a.db > b.db ? a : b), parsed[0]);
 
   const handleSave = async () => {
+    let latitude = 0;
+    let longitude = 0;
+
     try {
       const teamName = await getTeamName();
+      const coords = await getCurrentLocation();
+      latitude = coords.latitude;
+      longitude = coords.longitude;
+
       await saveResultsData(teamName, "sound", {
         actions: parsed,
         loudestAction: loudest?.action,
         loudestDb: loudest?.db,
+        latitude,
+        longitude,
       });
       setSaved(true);
     } catch (e) {

@@ -1,4 +1,5 @@
 import { getTeamName, saveResultsData } from "@/services/firestoreService";
+import { getCurrentLocation } from "@/services/locationService";
 import React, { useRef, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -58,11 +59,20 @@ export default function ReactionActivity() {
   };
 
   const handleSave = async () => {
+    let latitude = 0;
+    let longitude = 0;
+
     try {
       const teamName = await getTeamName();
+      const coords = await getCurrentLocation();
+      latitude = coords.latitude;
+      longitude = coords.longitude;
+
       await saveResultsData(teamName, "reaction", {
         reactionTime,
         bestTime,
+        latitude,
+        longitude,
       });
       setSaved(true);
     } catch (e) {

@@ -1,8 +1,8 @@
 import {
-    createUserWithEmailAndPassword,
-    signInAnonymously,
-    signInWithEmailAndPassword,
-    signOut,
+  createUserWithEmailAndPassword,
+  signInAnonymously,
+  signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 

@@ -2,13 +2,36 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   addDoc,
   collection,
+  doc,
   getDocs,
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "./firebaseConfig";
+import { auth, db } from "./firebaseConfig";
+
+export async function saveUserLocation(latitude: number, longitude: number) {
+  const user = auth.currentUser;
+  if (!user) {
+    throw new Error("User not authenticated");
+  }
+
+  const userRef = doc(db, "users", user.uid);
+
+  await setDoc(userRef, {
+    uid: user.uid,
+    email: user.email || "Anonymous",
+    lastLocation: {
+      latitude,
+      longitude,
+      timestamp: serverTimestamp(),
+    },
+    updatedAt: serverTimestamp(),
+  }, { merge: true });
+  return userRef;  
+}
 
 export async function saveTeamData(
   teamName: string,
@@ -39,9 +62,9 @@ export async function saveResultsData(
     teamLeader: teamLeader ?? "",
     activityType,
     data,
-    createdAt: serverTimestamp(),
     langitude: langitude ?? 0,
     longitude: longitude ?? 0,
+    createdAt: serverTimestamp(),
   });
 }
 
