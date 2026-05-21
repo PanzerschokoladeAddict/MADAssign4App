@@ -1,7 +1,7 @@
 import { loginAnonymously } from "@/services/authServices";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Image, StyleSheet } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { SafeAreaView } from "react-native-safe-area-context";
