@@ -30,18 +30,34 @@ export async function saveResultsData(
   teamName: string,
   activityType: string,
   data: object,
+  teamLeader?: string,
+  langitude?: number,
+  longitude?: number,
 ) {
   return addDoc(collection(db, "results"), {
     teamName,
+    teamLeader: teamLeader ?? "",
     activityType,
     data,
     createdAt: serverTimestamp(),
+    langitude: langitude ?? 0,
+    longitude: longitude ?? 0,
   });
 }
 
 export async function getTeamName(): Promise<string> {
   const name = await AsyncStorage.getItem("teamName");
   return name ?? "Unknown Team";
+}
+
+export async function getTeamLeader(): Promise<string> {
+  const leader = await AsyncStorage.getItem("teamLeader");
+  return leader ?? "Unknown Leader";
+}
+
+export async function getTeamCode(): Promise<string> {
+  const code = await AsyncStorage.getItem("teamCode");
+  return code ?? "Unknown Code";
 }
 
 export async function getTeams() {

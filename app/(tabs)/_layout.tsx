@@ -16,11 +16,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="history"
+        name="map"
         options={{
-          title: "History",
+          title: "Map",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="time" size={24} color={color} />
+            <Ionicons name="map" size={24} color={color} />
           ),
         }}
       />
