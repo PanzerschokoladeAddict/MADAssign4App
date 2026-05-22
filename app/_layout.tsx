@@ -6,6 +6,8 @@ export default function RootLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="teams/setup" />
       <Stack.Screen name="teams/join/join" />
+      <Stack.Screen name="teams/join/codejoin" />
+      <Stack.Screen name="teams/join/camerajoin" />
       <Stack.Screen name="teams/create/register" />
       <Stack.Screen name="teams/create/created" />
       <Stack.Screen name="(tabs)" />
