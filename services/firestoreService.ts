@@ -54,7 +54,7 @@ export async function saveResultsData(
   activityType: string,
   data: object,
   teamLeader?: string,
-  langitude?: number,
+  latitude?: number,
   longitude?: number,
 ) {
   return addDoc(collection(db, "results"), {
@@ -62,7 +62,7 @@ export async function saveResultsData(
     teamLeader: teamLeader ?? "",
     activityType,
     data,
-    langitude: langitude ?? 0,
+    latitude: latitude ?? 0,
     longitude: longitude ?? 0,
     createdAt: serverTimestamp(),
   });

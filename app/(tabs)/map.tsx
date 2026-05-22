@@ -20,7 +20,7 @@ export default function MapScreen() {
 
       const allResults = await getResults();
       const withLocation = allResults.filter((r: any) => {
-        const lat = r.langitude;
+        const lat = r.latitude;
         const lng = r.longitude;
         return typeof lat === "number" && typeof lng === "number" && lat !== 0 && lng !== 0;
       });
