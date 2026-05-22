@@ -2,7 +2,7 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, Divider } from "react-native-paper";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Join() {
@@ -18,14 +18,15 @@ export default function Join() {
       <SafeAreaView style={styles.container}>
         <Button 
         onPress={() => 
-          handlePress("./join/codejoin")
+          handlePress("../join/codejoin")
         }
         >
           Enter Code
         </Button>
+        <Divider style={{ marginVertical: 20, width: "80%", height: 8 }} />
         <Button
         onPress={() =>
-          handlePress("./join/camerajoin")
+          handlePress("../join/camerajoin")
         }
         >
           Join via QR Code
@@ -38,5 +39,7 @@ export default function Join() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

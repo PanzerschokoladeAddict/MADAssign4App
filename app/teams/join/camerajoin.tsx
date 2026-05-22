@@ -6,7 +6,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-export default function Join() {
+export default function CameraJoin() {
   const [permission, requestPermission] = useCameraPermissions();
   const router = useRouter();
 
