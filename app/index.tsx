@@ -1,16 +1,21 @@
 import { loginAnonymously } from "@/services/authServices";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Image, StyleSheet } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { requestLocationPermission } from "../services/locationService";
 
 export default function SetUp() {
   const router = useRouter();
 
   useEffect(() => {
-    loginAnonymously(); // Silenty log in the user anonymously to enable backend interactions without requiring immediate authentication.
+    const initializeApp = async () => {
+      await loginAnonymously(); // Silently log in the user anonymously to enable backend interactions without requiring immediate authentication.
+      await requestLocationPermission(); // Request location permissions to enable location-based features in the app.
+    };
+    initializeApp();
   }, []);
 
   const handleComplete = () => {

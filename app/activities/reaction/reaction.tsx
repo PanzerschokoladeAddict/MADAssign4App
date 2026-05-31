@@ -1,3 +1,5 @@
+import { getTeamName, saveResultsData } from "@/services/firestoreService";
+import { getCurrentLocation } from "@/services/locationService";
 import React, { useRef, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -7,6 +9,7 @@ export default function ReactionActivity() {
   const [status, setStatus] = useState<GameStatus>("idle");
   const [reactionTime, setReactionTime] = useState<number | null>(null);
   const [bestTime, setBestTime] = useState<number | null>(null);
+  const [saved, setSaved] = useState(false);
 
   const startTimeRef = useRef<number>(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -14,6 +17,7 @@ export default function ReactionActivity() {
   const startChallenge = () => {
     setStatus("waiting");
     setReactionTime(null);
+    setSaved(false);
 
     const randomDelay = Math.floor(Math.random() * 3000) + 2000;
 
@@ -54,6 +58,28 @@ export default function ReactionActivity() {
     setReactionTime(null);
   };
 
+  const handleSave = async () => {
+    let latitude = 0;
+    let longitude = 0;
+
+    try {
+      const teamName = await getTeamName();
+      const coords = await getCurrentLocation();
+      latitude = coords.latitude;
+      longitude = coords.longitude;
+
+      await saveResultsData(teamName, "reaction", {
+        reactionTime,
+        bestTime,
+        latitude,
+        longitude,
+      });
+      setSaved(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const getInstructionText = () => {
     if (status === "idle") {
       return "Tap Start Challenge. Wait for the signal, then tap as fast as you can.";
@@ -73,7 +99,6 @@ export default function ReactionActivity() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Reaction Board Challenge</Text>
-
       <Text style={styles.description}>
         Test your reaction time by tapping only when the signal appears.
       </Text>
@@ -100,6 +125,14 @@ export default function ReactionActivity() {
       {bestTime !== null && (
         <Text style={styles.bestText}>Best time: {bestTime} ms</Text>
       )}
+
+      {status === "finished" && !saved && (
+        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+          <Text style={styles.buttonText}>Save Results</Text>
+        </TouchableOpacity>
+      )}
+
+      {saved && <Text style={styles.savedText}>✅ Saved!</Text>}
 
       {status === "idle" || status === "finished" ? (
         <TouchableOpacity style={styles.button} onPress={startChallenge}>
@@ -199,6 +232,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  saveButton: {
+    backgroundColor: "#3a7bd5",
+    padding: 16,
+    borderRadius: 14,
+    alignItems: "center",
+    marginBottom: 8,
+  },
   secondaryButton: {
     backgroundColor: "#fff",
     padding: 16,
@@ -211,6 +251,12 @@ const styles = StyleSheet.create({
     color: "#1a1a1a",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  savedText: {
+    color: "green",
+    textAlign: "center",
+    marginBottom: 8,
+    fontSize: 16,
   },
   note: {
     fontSize: 13,

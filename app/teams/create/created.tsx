@@ -1,4 +1,5 @@
 import { saveTeamData } from "@/services/firestoreService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
@@ -13,15 +14,19 @@ export default function Create() {
     teamCode: string;
   }>();
 
-  if (!teamName || !teamLeader || !teamCode) return null;
-
   const router = useRouter();
   const qrValue = JSON.stringify({ teamName, teamLeader, teamCode });
 
   useEffect(() => {
-    // Save team data to Firestore when loading this screem
+    if (!teamName || !teamLeader || !teamCode) return;
+    // Save team data to Firestore when loading this screen
     saveTeamData(teamName, teamLeader, teamCode).catch(console.error);
-  }, []);
+    AsyncStorage.setItem("teamName", teamName);
+    AsyncStorage.setItem("teamLeader", teamLeader);
+    AsyncStorage.setItem("teamCode", teamCode);
+  }, [teamName, teamLeader, teamCode]);
+
+  if (!teamName || !teamLeader || !teamCode) return null;
 
   return (
     <SafeAreaProvider>

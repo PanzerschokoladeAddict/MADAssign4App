@@ -2,7 +2,7 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, Divider } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SetUpScreen() {
@@ -26,6 +26,7 @@ export default function SetUpScreen() {
       >
         Create A New Team
       </Button>
+      <Divider style={{ marginVertical: 20, width: "100%", height: 8 }} />
       <Button
         style={styles.button}
         contentStyle={styles.buttonContent}

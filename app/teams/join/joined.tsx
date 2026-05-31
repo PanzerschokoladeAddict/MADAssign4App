@@ -19,10 +19,10 @@ export default function Joined() {
   return (
     <View style={styles.container}>
       <Text variant="headlineMedium" style={styles.title}>
-        You're in!
+        Youre in!
       </Text>
       <Text variant="bodyLarge" style={styles.teamName}>
-        You've joined{"\n"}
+        Youve joined{"\n"}
         {teamName}
       </Text>
       <Text variant="bodyMedium" style={styles.teamLeader}>
@@ -36,7 +36,7 @@ export default function Joined() {
         buttonColor="#4c8f3f"
         onPress={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-          router.replace("../../(tabs)/home");
+          router.replace("/(tabs)/home");
         }}
         style={styles.button}
       >
