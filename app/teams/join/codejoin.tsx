@@ -9,6 +9,11 @@ export default function CodeJoin() {
     const [code, setCode] = useState("");
     const router = useRouter();
     
+    const handlePress = ( route: any ) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+        router.push({pathname: route, params: { teamCode: code } });
+    };
+
     return (
         <SafeAreaProvider>
             <SafeAreaView>
@@ -24,8 +29,7 @@ export default function CodeJoin() {
                 </TextInput>
                 <Button
                     onPress={() => {
-                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                        router.push({pathname: "./joined", params: { teamCode: code } });
+                        handlePress("./joined")
                     }}
                 >
                     Join Team

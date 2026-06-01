@@ -10,7 +10,13 @@ export default function Joined() {
     teamLeader: string;
     teamCode: string;
   }>();
+
   const router = useRouter();
+
+  const handlePress = ( route: any ) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    router.replace(route);
+  };
 
   useEffect(() => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -35,8 +41,7 @@ export default function Joined() {
         mode="contained"
         buttonColor="#4c8f3f"
         onPress={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-          router.replace("/(tabs)/home");
+          handlePress("/(tabs)/home")
         }}
         style={styles.button}
       >

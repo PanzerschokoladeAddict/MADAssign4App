@@ -10,6 +10,11 @@ export default function CameraJoin() {
   const [permission, requestPermission] = useCameraPermissions();
   const router = useRouter();
 
+  const handlePress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    requestPermission();
+  }
+
   if (!permission) {
     return <View />;
   }
@@ -22,8 +27,7 @@ export default function CameraJoin() {
         </Text>
         <Button
           onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-            requestPermission();
+            handlePress()
           }}
           mode="contained"
           buttonColor="#3f648f"
