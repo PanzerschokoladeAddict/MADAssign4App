@@ -1,9 +1,9 @@
+import ScreenWrapper from "@/components/ScreenWrapper";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Button, Divider } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SetUpScreen() {
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function SetUpScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <Button
         style={styles.button}
         contentStyle={styles.buttonContent}
@@ -38,14 +38,12 @@ export default function SetUpScreen() {
       >
         Join An Existing Team
       </Button>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 20,
     paddingVertical: 20,
   },
   button: {

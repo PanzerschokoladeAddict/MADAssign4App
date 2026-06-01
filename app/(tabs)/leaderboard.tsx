@@ -1,8 +1,8 @@
+import ScreenWrapper from "@/components/ScreenWrapper";
 import { getResults } from "@/services/firestoreService";
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 type Result = {
   id: string;
@@ -49,8 +49,7 @@ export default function LeaderboardScreen() {
   };
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+    <ScreenWrapper>
         <Text variant="headlineMedium" style={styles.title}>
           Leaderboard
         </Text>
@@ -86,16 +85,24 @@ export default function LeaderboardScreen() {
             </View>
           )}
         />
-      </SafeAreaView>
-    </SafeAreaProvider>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f5f5" },
-  title: { textAlign: "center", margin: 24 },
-  loading: { textAlign: "center", color: "#999" },
-  empty: { textAlign: "center", color: "#999", paddingHorizontal: 24 },
+  title: { 
+    textAlign: "center", 
+    margin: 24 
+  },
+  loading: { 
+    textAlign: "center", 
+    color: "#999" 
+  },
+  empty: { 
+    textAlign: "center", 
+    color: "#999", 
+    paddingHorizontal: 24 
+  },
   card: {
     flexDirection: "row",
     alignItems: "center",
@@ -112,7 +119,14 @@ const styles = StyleSheet.create({
     marginRight: 16,
     width: 36,
   },
-  cardContent: { flex: 1 },
-  teamName: { fontWeight: "bold" },
-  activity: { color: "#666", marginTop: 2 },
+  cardContent: { 
+    flex: 1 
+  },
+  teamName: { 
+    fontWeight: "bold" 
+  },
+  activity: { 
+    color: "#666", 
+    marginTop: 2 
+  },
 });

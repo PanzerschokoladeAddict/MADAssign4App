@@ -1,3 +1,4 @@
+import ScreenWrapper from "@/components/ScreenWrapper";
 import {
   getRecordingPermissionsAsync,
   RecordingPresets,
@@ -10,7 +11,6 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const ACTIONS = [
   "Action 1 - Drop an Item",
@@ -102,47 +102,44 @@ export default function SoundActivity() {
   };
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text variant="headlineMedium" style={styles.title}>
-          Sound Pollution Hunter
+    <ScreenWrapper style={styles.container}>
+      <Text variant="headlineMedium" style={styles.title}>
+        Sound Pollution Hunter
+      </Text>
+
+      <Text variant="bodyMedium" style={styles.actionLabel}>
+        Action {currentAction + 1} of {ACTIONS.length}
+      </Text>
+      <Text variant="titleMedium" style={styles.actionName}>
+        {ACTIONS[currentAction]}
+      </Text>
+
+      {results.map((r, i) => (
+        <Text key={i} style={[styles.resultRow, { color: r.color }]}>
+          {r.action}: {r.db} dB — {r.risk}
         </Text>
+      ))}
 
-        <Text variant="bodyMedium" style={styles.actionLabel}>
-          Action {currentAction + 1} of {ACTIONS.length}
+      {recorderState.isRecording && (
+        <Text variant="displaySmall" style={styles.db}>
+          {currentDB} dB
         </Text>
-        <Text variant="titleMedium" style={styles.actionName}>
-          {ACTIONS[currentAction]}
-        </Text>
+      )}
 
-        {results.map((r, i) => (
-          <Text key={i} style={[styles.resultRow, { color: r.color }]}>
-            {r.action}: {r.db} dB — {r.risk}
-          </Text>
-        ))}
-
-        {recorderState.isRecording && (
-          <Text variant="displaySmall" style={styles.db}>
-            {currentDB} dB
-          </Text>
-        )}
-
-        <Button
-          mode="contained"
-          buttonColor={recorderState.isRecording ? "#8f3f3f" : "#4c8f3f"}
-          style={styles.button}
-          onPress={recorderState.isRecording ? stopRecording : record}
-        >
-          {recorderState.isRecording ? "Stop Recording" : "Start Recording"}
-        </Button>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      <Button
+        mode="contained"
+        buttonColor={recorderState.isRecording ? "#8f3f3f" : "#4c8f3f"}
+        style={styles.button}
+        onPress={recorderState.isRecording ? stopRecording : record}
+      >
+        {recorderState.isRecording ? "Stop Recording" : "Start Recording"}
+      </Button>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     paddingHorizontal: 24,
   },

@@ -1,10 +1,10 @@
+import ScreenWrapper from "@/components/ScreenWrapper";
 import { loginAnonymously } from "@/services/authServices";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { Image, StyleSheet } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { requestLocationPermission } from "../services/locationService";
 
 export default function SetUp() {
@@ -24,7 +24,7 @@ export default function SetUp() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <Onboarding
         onSkip={handleComplete}
         onDone={handleComplete}
@@ -59,13 +59,13 @@ export default function SetUp() {
           },
         ]}
       />
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    paddingHorizontal: 0,
     backgroundColor: "#000",
   },
 });

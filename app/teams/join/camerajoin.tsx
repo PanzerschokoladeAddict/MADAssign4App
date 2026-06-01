@@ -1,10 +1,10 @@
+import ScreenWrapper from "@/components/ScreenWrapper";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function CameraJoin() {
   const [permission, requestPermission] = useCameraPermissions();
@@ -62,8 +62,7 @@ export default function CameraJoin() {
   }
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+    <ScreenWrapper>
         <CameraView
           style={styles.camera}
           facing="back"
@@ -73,15 +72,11 @@ export default function CameraJoin() {
         <Text style={styles.instructions}>
           Point your camera at a team QR code
         </Text>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   permissionContainer: {
     flex: 1,
     alignItems: "center",

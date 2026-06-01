@@ -1,3 +1,4 @@
+import ScreenWrapper from "@/components/ScreenWrapper";
 import * as Battery from "expo-battery";
 import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
@@ -11,7 +12,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -132,7 +132,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScreenWrapper>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={styles.title}>STEMM Lab</Text>
         <Text>Battery Level: {Math.round(batteryLevel * 100)}%</Text>
@@ -160,15 +160,11 @@ export default function HomeScreen() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
   scroll: {
     padding: 20,
   },

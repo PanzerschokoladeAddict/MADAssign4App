@@ -1,3 +1,4 @@
+import ScreenWrapper from "@/components/ScreenWrapper";
 import { saveTeamData } from "@/services/firestoreService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -5,7 +6,6 @@ import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import QRCode from "react-native-qrcode-svg";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Create() {
   const { teamName, teamLeader, teamCode } = useLocalSearchParams<{
@@ -29,51 +29,49 @@ export default function Create() {
   if (!teamName || !teamLeader || !teamCode) return null;
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text variant="headlineMedium" style={styles.title}>
-          Team Created!
+    <ScreenWrapper style={styles.container}>
+      <Text variant="headlineMedium" style={styles.title}>
+        Team Created!
+      </Text>
+
+      <View style={styles.infoCard}>
+        <Text variant="titleMedium" style={styles.label}>
+          Team Name
+        </Text>
+        <Text variant="bodyLarge" style={styles.value}>
+          {teamName}
         </Text>
 
-        <View style={styles.infoCard}>
-          <Text variant="titleMedium" style={styles.label}>
-            Team Name
-          </Text>
-          <Text variant="bodyLarge" style={styles.value}>
-            {teamName}
-          </Text>
-
-          <Text variant="titleMedium" style={styles.label}>
-            Team Leader
-          </Text>
-          <Text variant="bodyLarge" style={styles.value}>
-            {teamLeader}
-          </Text>
-
-          <Text variant="titleMedium" style={styles.label}>
-            Team Code
-          </Text>
-          <Text variant="bodyLarge" style={styles.value}>
-            {teamCode}
-          </Text>
-        </View>
-
-        <Text variant="bodyMedium" style={styles.qrLabel}>
-          Share this QR code for others to join your team!
+        <Text variant="titleMedium" style={styles.label}>
+          Team Leader
+        </Text>
+        <Text variant="bodyLarge" style={styles.value}>
+          {teamLeader}
         </Text>
 
-        <QRCode value={qrValue} size={200} />
+        <Text variant="titleMedium" style={styles.label}>
+          Team Code
+        </Text>
+        <Text variant="bodyLarge" style={styles.value}>
+          {teamCode}
+        </Text>
+      </View>
 
-        <Button
-          mode="contained"
-          buttonColor="#4c8f3f"
-          style={{ marginTop: 24 }}
-          onPress={() => router.replace("../../(tabs)/home")}
-        >
-          Start Activities
-        </Button>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      <Text variant="bodyMedium" style={styles.qrLabel}>
+        Share this QR code for others to join your team!
+      </Text>
+
+      <QRCode value={qrValue} size={200} />
+
+      <Button
+        mode="contained"
+        buttonColor="#4c8f3f"
+        style={{ marginTop: 24 }}
+        onPress={() => router.replace("../../(tabs)/home")}
+      >
+        Start Activities
+      </Button>
+    </ScreenWrapper>
   );
 }
 
