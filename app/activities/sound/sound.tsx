@@ -66,7 +66,10 @@ export default function SoundActivity() {
 
   useEffect(() => {
     if (recorderState.isRecording && recorderState.metering !== undefined) {
-      setCurrentDB(Math.round(recorderState.metering + 160));
+      const raw = recorderState.metering;
+      const scaled = Math.round((raw + 60) * (70 / 60) + 30 ); // Scale -60 to 0 dB range into 30 to 100 dB range
+      const clamped = Math.max(30, Math.min(130, scaled)); // Clamp to 30-100 dB
+      setCurrentDB(clamped);
     }
   }, [recorderState.metering]);
 
