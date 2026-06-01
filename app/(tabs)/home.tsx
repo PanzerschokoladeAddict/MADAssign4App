@@ -81,7 +81,7 @@ export default function HomeScreen() {
           );
         },
       );
-    } catch (error) {
+    } catch {
       console.warn("Battery API not supported on this device");
     }
 
