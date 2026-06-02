@@ -71,7 +71,7 @@ export default function SoundActivity() {
       const clamped = Math.max(30, Math.min(130, scaled)); // Clamp to 30-100 dB
       setCurrentDB(clamped);
     }
-  }, [recorderState.isRecording, recorderState.metering]);
+  }, [recorderState.metering]);
 
   const record = async () => {
     await audioRecorder.prepareToRecordAsync();
